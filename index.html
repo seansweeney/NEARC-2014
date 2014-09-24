@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -31,6 +31,12 @@
 			}
 		</script>
 
+		<style>
+			.reveal.has-parallax-background .backgrounds {
+				opacity: 0.6;
+			}
+		</style>
+
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
@@ -42,23 +48,133 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-					<h1>One Metadata to Rule Them All</h1>
-					<br />
-					<h3>NEARC - Groton, CT <br />
-					  October 7, 2014</h3>
-					<br />
-					<p>
-						  Sean Sweeney, GIS Programmer Analyst <br />
-						  Rachel Sheketoff, Web Developer <br />
-						  City of Cambridge, MA
-					</p>
-
+				<section data-background="images/one_ring.png" data-background-size="500px">
+					<h1><p>One Metadata to Rule Them All</p></h1>
+					<h2><p>NEARC - Groton, CT </p>
+						<p>October 7, 2014</p>
+					</h2>
+					<h3><p>Sean Sweeney, GIS Programmer Analyst</p>
+						<p>Rachel Sheketoff, Web Developer</p>
+						<p>City of Cambridge, MA</p>
+					</h3>
 					<aside class="notes">
-					  When we recently built our new GIS website, we were searching for a way to better manage our metadata.  At the time we had a data maintenance book in Word documents, plus a separate HTML data dictionary for our old website in addition to the standard SDE metadata.  All of these were carrying similar information but needed to be edited individually.  With the prospect of posting some of our data on GitHub, ArcGIS Online, and our Socrata data portal, we were looking at even more places to edit.
+					  <p>When we recently built our new GIS website, we were searching for a way to better manage our metadata.  At the time we had a data maintenance book in Word documents, plus a separate HTML data dictionary for our old website in addition to the standard SDE metadata.  All of these were carrying similar information but needed to be edited individually.  With the prospect of posting some of our data on GitHub, ArcGIS Online, and our Socrata data portal, we were looking at even more places to edit.</p>
 
-					  In this presentation, we will demo our new data dictionary, which is generated directly from the XML metadata in our ArcSDE database, and we’ll show the process we used to build it.  We’ll also discuss our other ongoing efforts to consolidate our metadata into one single source.
+					  <p>In this presentation, we will demo our new data dictionary, which is generated directly from the XML metadata in our ArcSDE database, and we’ll show the process we used to build it.  We’ll also discuss our other ongoing efforts to consolidate our metadata into one single source.</p>
 					</aside>
+				</section>
+
+				<section>
+					<p>SDE + Data Dictionary + Data Maintenance</p>
+					<aside class="notes">
+					<p>This is a problem I have been thinking about for a couple of years now.  At that time we had our SDE metadata plus our online data dictionary pages and
+					our data maintenance pages, which were Word documents.  Three separate things that needed to be maintained separately.</p>
+					</aside>
+				</section>
+
+				<section>
+					<p>SDE + Data Dictionary + Data Maintenance + GitHub + Socrata + ArcGIS Server + ArcGIS Online + ArcGIS for Open Data</p>
+					<aside class="notes">
+					<p>In the past year or so, it became even more important as we started to distribute our data in new ways.</p>
+					</aside>
+				</section>
+
+				<section>
+					<p>SDE + (Data Dictionary + Data Maintenance) + GitHub + Socrata + (ArcGIS Online + ArcGIS for Open Data)</p>
+					<aside class="notes">
+					<p>The problem is actually a little smaller than that because we removed the redundancy from the Data Maintenance pages and moved those to our internal 
+					wiki, AGOD uses AGOL metadata, and Server doesn't really have layer-level metadata anyway.  The point remains, though, that we would prefer to edit
+					the metadata once and distribute it from that central point, like we do for the data itself.</p>
+					</aside>
+				</section>
+
+				<section>
+					<p>Show the XML</p>
+					<aside>This is the linchpin of the whole process.  All outputs are derived from the XML stored in SDE.</aside>
+				</section>
+
+				<section>
+					<p>GitHub - show page.</p>
+					<aside>Github was the low hanging fruit - we just export the XML and leave it at that.</aside>
+				</section>
+
+				<section>
+					<p>GitHub - show Python code.</p>
+				</section>
+
+				<section>
+					<p>GitHub - Markdown option? Check Philly.</p>
+				</section>
+
+				<section>
+					<p>Show SQL for extracting metadata</p>
+				</section>
+
+				<section>
+					<p>Show configuration table</p>
+				</section>
+
+				<section>
+					<p>Data Dictionary - show page</p>
+				</section>
+
+				<section>
+					<p>Data Dictionary - show process diagram?</p>
+				</section>
+
+				<section>
+					<h3>Sample of XSLT File</h3>
+					<pre><code class='xsl' data-trim>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output method="html" omit-xml-declaration="yes"></xsl:output>
+  <xsl:variable name="Upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"></xsl:variable>
+  <xsl:variable name="Lower" select="'abcdefghijklmnopqrstuvwxyz'"></xsl:variable>
+  <xsl:template match="metadata">
+    <xsl:if test="count(Binary/Thumbnail/Data) > 0">
+      <div class="right">
+        <xsl:element name="img">
+          <xsl:attribute name="src">data:image/jpeg;base64,<xsl:value-of select="Binary/Thumbnail/Data" /></xsl:attribute>
+          <xsl:attribute name="width">350px</xsl:attribute>
+        </xsl:element>
+      </div>
+    </xsl:if>
+    ...
+    </xsl:template>
+    ...
+</xsl:stylesheet>
+	                </code></pre>
+	                <p>Full XSLT: <a target='_blank' href='https://gist.github.com/seansweeney/ae576708d6c651b92c05'>https://gist.github.com/seansweeney/ae576708d6c651b92c05</a></p>
+	            </section>
+
+				<section>
+					<p>Data Dictionary - show C# pseudocode</p>
+					<pre><code class='csharp' data-trim>
+//do the transformation
+XslCompiledTransform xslt = new XslCompiledTransform();
+xslt.Load(Settings.GetSetting("GisDataDictionary.XslFileLoc"));
+StringWriter sW = new StringWriter();
+using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
+{
+       xslt.Transform(xmlR, null, xmlW);
+       returnValue = sW.ToString();
+}
+	                </code></pre>
+				</section>
+
+				<section>
+					<p>AGOL - show page</p>
+				</section>
+
+				<section>
+					<p>AGOL - show AGOD page</p>
+				</section>
+
+				<section>
+					<p>AGOL - show process diagram?</p>
+				</section>
+
+				<section>
+					<p>AGOL - show REST calls used</p>
 				</section>
 
 				<section>
@@ -80,7 +196,27 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
     print results
     return results
 				  </code></pre>
+				  <aside class="notes">
+				  	This function is used to update the descriptive information for an AGOL item.
+				  </aside>
 				</section>
+
+				<section>
+					<h3>Socrata?</h3>
+				</section>
+
+				<section>
+					<h1>More Info</h1>
+					<h2>Me</h2>
+					<p>Email: ssweeney@cambridgema.gov</p>
+					<p>Twitter: @hiker4k</p>
+					<p>GitHub: seansweeney</p>
+					<p>These Slides: <a target='_blank' href='http://seansweeney.github.io/NEARC-2014/'>http://seansweeney.github.io/NEARC-2014/</a></p>
+					<h2>Us</h2>
+					<p>Web: <a target='_blank' href='http://cambridgema.gov/gis'>http://cambridgema.gov/gis</a></p>
+					<p>Twitter: @CambridgeGIS</p>
+				</section>
+
 			</div>
 
 		</div>
@@ -96,14 +232,15 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
 				controls: true,
 				progress: true,
 				history: true,
-				center: true,
+				center: false,
+				slideNumber: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+//				theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
+				parallaxBackgroundImage: 'images/Map-of-Middle-Earth-lord-of-the-rings-2329809-1600-1200.jpg',
+				parallaxBackgroundSize: '1600px 1200px',
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
