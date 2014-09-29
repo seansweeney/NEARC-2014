@@ -127,25 +127,64 @@
 					<span class='fragment'>
 						<img src='images/vision6.png' style='position:absolute; top: 0px; left: 0px; margin: 0px; max-width: none; max-height: none;' />
 					</span>
-					<aside class="notes">
-					<p>The problem is actually a little smaller than that because we removed the redundancy from the Data Maintenance pages and moved those to our internal 
-					wiki, AGOD uses AGOL metadata, and Server doesn't really have layer-level metadata anyway.  The point remains, though, that we would prefer to edit
-					the metadata once and distribute it from that central point, like we do for the data itself.</p>
+					<aside class='notes'>
+					<p>The problem is actually a little smaller than that because we removed the redundancy from the Data Maintenance 
+					pages and moved those to our internal wiki, AGOD uses AGOL metadata, and Server doesn't really have layer-level 
+					metadata anyway.  The point remains, though, that we would prefer to edit the metadata once and distribute it 
+					from that central point, like we do for the data itself.</p>
 					</aside>
 				</section>
 
 				<section>
-					<p>Show the XML</p>
-					<aside>This is the linchpin of the whole process.  All outputs are derived from the XML stored in SDE.</aside>
+				<h3>Metadata XML</h3>
+					<pre><code data-trim class="xml" style='height:100%'>
+<metadata>
+    ...
+    <descript>
+      <abstract>This data set derives from several sources. The...</abstract>
+      <purpose>Updated parcel layer with the 2014 land use data.</purpose>
+    </descript>					
+      ...
+      <attr>
+        <attrlabl>ML</attrlabl>
+        <attrdef>Map-Lot: This a unique parcel identifier found in...</attrdef>
+      </attr>
+  ...
+</metadata>
+					</code></pre>
+					<aside class='notes'>
+					<p>The metadata is stored in the SDE database in XML format.  This is the linchpin of the whole process.  
+					All outputs are derived from the XML stored in SDE.</p>
+					</aside>
 				</section>
 
 				<section>
-					<p>GitHub - show page.</p>
-					<aside>Github was the low hanging fruit - we just export the XML and leave it at that.</aside>
-				</section>
+				<h3>GitHub Export</h3>
+				  <pre><code data-trim class="python" style='height:100%'>
+installDir = arcpy.GetInstallInfo("desktop")["InstallDir"]
+translator = installDir + "Metadata/Translator/ARCGIS2FGDC.xml"
+
+source = database + schema + featureClass
+if featureDataset != '':
+    source = database + schema + featureDataset + "/" + source
+
+dest = dest_root + "\\" + dest_path + "\\" + dest_name
+
+if not arcpy.Exists(source):
+    print "ERROR: " + source + " Not Found"
+else:
+    arcpy.gp.esri2open_esri2open(source, dest + ".geojson", "Default")
+    arcpy.ExportMetadata_conversion(source, translator, dest + ".xml")
+	                </code></pre>
+					<aside class="notes">
+					<p>GitHub was the low hanging fruit - we just export the XML a GP tool and leave it at that.
+					</p>
+					</aside>
+                </section>
 
 				<section>
-					<p>GitHub - show Python code.</p>
+					<img src='images/github_xml.png' alt='GitHub XML' />
+					<aside class="notes"></aside>
 				</section>
 
 				<section>
@@ -153,19 +192,20 @@
 				</section>
 
 				<section>
-					<p>Show SQL for extracting metadata</p>
+					<p>Data Dictionary - show process diagram?</p>
+				</section>
+
+				<section>
+					<h3>SQL Access to SDE Metadata</h3>
+				  <pre><code data-trim class='sql'>
+SELECT Documentation
+FROM sde.GDB_ITEMS
+WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'				  
+				  </code></pre>
 				</section>
 
 				<section>
 					<p>Show configuration table</p>
-				</section>
-
-				<section>
-					<p>Data Dictionary - show page</p>
-				</section>
-
-				<section>
-					<p>Data Dictionary - show process diagram?</p>
 				</section>
 
 				<section>
@@ -193,7 +233,7 @@
 	            </section>
 
 				<section>
-					<p>Data Dictionary - show C# pseudocode</p>
+					<h3>Transformation in C#</h3>
 					<pre><code class='csharp' data-trim>
 //do the transformation
 XslCompiledTransform xslt = new XslCompiledTransform();
@@ -205,6 +245,13 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
        returnValue = sW.ToString();
 }
 	                </code></pre>
+				</section>
+
+				<section>
+					<h3>Data Dictionary</h3>
+					<img src='images/new_data_dictionary.png' alt='Data Dictionary' />
+
+					<aside class='notes'><p>Data Dictionary - show page</p></aside>
 				</section>
 
 				<section>
@@ -225,7 +272,7 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 
 				<section>
 				  <h3>Updating the item</h3>
-				  <pre><code data-trim>
+				  <pre><code data-trim class='python'>
 def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snippet, tags):
     '''Update the item descriptive information.'''
     params = {
@@ -249,6 +296,7 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
 
 				<section>
 					<h3>Socrata?</h3>
+					<img src='images/socrata_metadata.png' alt='Socrata Metadata' />
 				</section>
 
 				<section>
