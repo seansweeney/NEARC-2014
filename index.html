@@ -47,23 +47,22 @@
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
-	</head>
+	</head4
 
 	<body>
-
-		<div class="reveal">
+4		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-background="images/one_ring.png" data-background-size="500px">
 					<h1><p>One Metadata to Rule Them All</p></h1>
-					<h2><p>NEARC - Groton, CT </p>
+					<h3><p>NEARC - Groton, CT </p>
 						<p>October 7, 2014</p>
-					</h2>
-					<h3><p>Sean Sweeney, GIS Programmer Analyst</p>
+					</h3>
+					<h4><p>Sean Sweeney, GIS Programmer Analyst</p>
 						<p>Rachel Sheketoff, Web Developer</p>
 						<p>City of Cambridge, MA</p>
-					</h3>
+					</h4>
 					<aside class="notes">
 					  <p>When we recently built our new GIS website, we were searching for a way to better manage our metadata.  At the time we had a data maintenance book in Word documents, plus a separate HTML data dictionary for our old website in addition to the standard SDE metadata.  All of these were carrying similar information but needed to be edited individually.  With the prospect of posting some of our data on GitHub, ArcGIS Online, and our Socrata data portal, we were looking at even more places to edit.</p>
 
@@ -72,12 +71,12 @@
 				</section>
 
 				<section>
-					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -40px; left: -40px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
+					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -20px; left: -20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
 					<span class='fragment'>
 						<img src='images/old_data_dictionary.png' alt='Data Dictionary' style='position: absolute; top: 0px; left: 0px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/old_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 40px; left: 40px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/old_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 20px; left: 20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
 					<p>This is a problem I have been thinking about for a couple of years now.  At that time we had our SDE metadata plus our online data dictionary pages and
@@ -86,24 +85,24 @@
 				</section>
 
 				<section>
-					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -40px; left: -40px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
+					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -20px; left: -20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
 					<span class='fragment'>
 						<img src='images/new_data_dictionary.png' alt='Data Dictionary' style='position: absolute; top: 0px; left: 0px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/new_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 40px; left: 40px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/new_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 20px; left: 20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/github_data.png' alt='GitHub' style='position: absolute; top: 80px; left: 80px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/github_data.png' alt='GitHub' style='position: absolute; top: 40px; left: 40px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/arcgis_online.png' alt='ArcGIS Online' style='position: absolute; top: 120px; left: 120px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/arcgis_online.png' alt='ArcGIS Online' style='position: absolute; top: 60px; left: 60px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/arcgis_open_data.png' alt='ArcGIS Open Data' style='position: absolute; top: 160px; left: 160px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/arcgis_open_data.png' alt='ArcGIS Open Data' style='position: absolute; top: 80px; left: 80px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/socrata.png' alt='Socrata' style='position: absolute; top: 200px; left: 200px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/socrata.png' alt='Socrata' style='position: absolute; top: 100px; left: 100px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
 					<p>In the past year or so, it became even more important as we started to distribute our data in new ways.</p>
@@ -229,7 +228,6 @@ WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'
     ...
 </xsl:stylesheet>
 	                </code></pre>
-	                <p>Full XSLT: <a target='_blank' href='https://gist.github.com/seansweeney/ae576708d6c651b92c05'>https://gist.github.com/seansweeney/ae576708d6c651b92c05</a></p>
 	            </section>
 
 				<section>
@@ -248,7 +246,6 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 				</section>
 
 				<section>
-					<h3>Data Dictionary</h3>
 					<img src='images/new_data_dictionary.png' alt='Data Dictionary' />
 
 					<aside class='notes'><p>Data Dictionary - show page</p></aside>
@@ -295,7 +292,6 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
 				</section>
 
 				<section>
-					<h3>Socrata?</h3>
 					<img src='images/socrata_metadata.png' alt='Socrata Metadata' />
 				</section>
 
