@@ -31,7 +31,7 @@
 			}
 		</script>
 
-		<style>
+		<style type='text/css'>
 			.reveal.has-parallax-background .backgrounds {
 				opacity: 0.6;
 			}
@@ -42,12 +42,30 @@
 				box-shadow: none;
 			}
 
+			table.gridtable {
+				font-family: verdana,arial,sans-serif;
+				font-size:11px;
+				color:#333333;
+				border-width: 1px;
+				border-color: #666666;
+				border-collapse: collapse;
+			}
+			table.gridtable th {
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #666666;
+				background-color: #dedede;
+			}
+			table.gridtable td {
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #666666;
+				background-color: #ffffff;
+			}
 		</style>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head4
+	</head>
 
 	<body>
 		<div class="reveal">
@@ -71,12 +89,12 @@
 				</section>
 
 				<section>
-					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -20px; left: -20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
+					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -10px; left: -10px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
 					<span class='fragment'>
 						<img src='images/old_data_dictionary.png' alt='Data Dictionary' style='position: absolute; top: 0px; left: 0px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/old_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 20px; left: 20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/old_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 10px; left: 10px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
 					<p>This is a problem I have been thinking about for a couple of years now.  At that time we had our SDE metadata plus our online data dictionary pages and
@@ -85,24 +103,24 @@
 				</section>
 
 				<section>
-					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -20px; left: -20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
+					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -30px; left: -30px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
 					<span class='fragment'>
-						<img src='images/new_data_dictionary.png' alt='Data Dictionary' style='position: absolute; top: 0px; left: 0px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/new_data_dictionary.png' alt='Data Dictionary' style='position: absolute; top: -20px; left: -20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/new_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 20px; left: 20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/new_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: -10px; left: -10px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/github_data.png' alt='GitHub' style='position: absolute; top: 40px; left: 40px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/github_data.png' alt='GitHub' style='position: absolute; top: 0px; left: 0px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/arcgis_online.png' alt='ArcGIS Online' style='position: absolute; top: 60px; left: 60px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/agol_metadata.png' alt='ArcGIS Online' style='position: absolute; top: 10px; left: 10px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/arcgis_open_data.png' alt='ArcGIS Open Data' style='position: absolute; top: 80px; left: 80px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/agod_metadata.png' alt='ArcGIS Open Data' style='position: absolute; top: 20px; left: 20px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<span class='fragment'>
-						<img src='images/socrata.png' alt='Socrata' style='position: absolute; top: 100px; left: 100px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
+						<img src='images/socrata.png' alt='Socrata' style='position: absolute; top: 30px; left: 30px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
 					<p>In the past year or so, it became even more important as we started to distribute our data in new ways.</p>
@@ -187,7 +205,9 @@ else:
 				</section>
 
 				<section>
-					<p>GitHub - Markdown option? Check Philly.</p>
+					<img src='images/arc-open_markdown.png' alt='GitHub XML' />
+					<aside class="notes">
+					<p>GitHub - Markdown option?  Philly's <a href='https://github.com/CityOfPhiladelphia/arc-open' target='_blank'>Arc-Open</a> project has it built in.</p>
 				</section>
 
 				<section>
@@ -204,7 +224,57 @@ WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'
 				</section>
 
 				<section>
-					<p>Show configuration table</p>
+					<h3>Configuration Table</h3>
+					<table class='gridtable'>
+						<thead>
+							<tr>
+								<th>Source Dataset</th>
+								<th>Source Name</th>
+								<th>Destination Name</th>
+								<th>Destination Path</th>
+								<th>On GitHub</th>
+								<th>In Data Dictionary</th>
+								<th>Updated</th>
+							</tr>
+							<tr>
+								<td>CDD_Zoning</td>
+								<td>ZoningDistricts</td>
+								<td>CDD_ZoningDistricts</td>
+								<td>CDD\Zoning_Districts</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td>LANDMARK_ElderlyFacilities</td>
+								<td>LANDMARK_ElderlyFacilities</td>
+								<td>Landmark\Elderly_Facilities</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td>RECREATION_CommunityGardens</td>
+								<td>RECREATION_CommunityGardens</td>
+								<td>Recreation\Community_Gardens</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td>UrbanForestry_Trees</td>
+								<td>DPW_StreetTrees</td>
+								<td>DPW\Trees</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+						</tbody>
+					</table>
+					<aside class='notes'><p>Show configuration table</p></aside>
 				</section>
 
 				<section>
@@ -252,11 +322,13 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 				</section>
 
 				<section>
-					<p>AGOL - show page</p>
-				</section>
+					<img src='images/agol_metadata.png' alt='ArcGIS Online Metadata' style='position:absolute; top: 0px; left: 0px; margin: 0px; max-width: none; max-height: none;'/>
 
-				<section>
-					<p>AGOL - show AGOD page</p>
+					<span class='fragment'>
+						<img src='images/agod_metadata.png' alt='ArcGIS for Open Data Metadata' style='position:absolute; top: 10px; left: 10px; margin: 0px; max-width: none; max-height: none;' />
+					</span>
+
+					<aside class='notes'><p>AGOL -> AGOD - show page</p></aside>
 				</section>
 
 				<section>
