@@ -83,9 +83,16 @@
 						<p>City of Cambridge, MA</p>
 					</h4>
 					<aside class="notes">
-					  <p>When we recently built our new GIS website, we were searching for a way to better manage our metadata.  At the time we had a data maintenance book in Word documents, plus a separate HTML data dictionary for our old website in addition to the standard SDE metadata.  All of these were carrying similar information but needed to be edited individually.  With the prospect of posting some of our data on GitHub, ArcGIS Online, and our Socrata data portal, we were looking at even more places to edit.</p>
+					  <p>When we recently built our new GIS website, we were searching for a way to better manage our 
+					  metadata.  At the time we had a data maintenance book in Word documents, plus a separate HTML data 
+					  dictionary for our old website in addition to the standard SDE metadata.  All of these were carrying 
+					  similar information but needed to be edited individually.  With the prospect of posting some of our 
+					  data on GitHub, ArcGIS Online, and our Socrata data portal, we were looking at even more places to edit.</p>
 
-					  <p>In this presentation, we will demo our new data dictionary, which is generated directly from the XML metadata in our ArcSDE database, and we’ll show the process we used to build it.  We’ll also discuss our other ongoing efforts to consolidate our metadata into one single source.</p>
+					  <p>In this presentation, we will demo our new data dictionary, which is generated directly from the XML 
+					  metadata in our ArcSDE database, and we’ll show the process we used to build it.  We’ll also discuss 
+					  our other ongoing efforts to consolidate our metadata into one single source.
+					  </p>
 					</aside>
 				</section>
 
@@ -98,8 +105,10 @@
 						<img src='images/old_data_maintenance.png' alt='Data Maintenance' style='position: absolute; top: 10px; left: 10px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
-					<p>This is a problem I have been thinking about for a couple of years now.  At that time we had our SDE metadata plus our online data dictionary pages and
-					our data maintenance pages, which were Word documents.  Three separate things that needed to be maintained separately.</p>
+						<p>This is a problem I have been thinking about for a couple of years now.  At that time we had our
+						SDE metadata plus our online data dictionary pages and our data maintenance pages, which were 
+						Word documents.  Three separate things that needed to be maintained separately.
+						</p>
 					</aside>
 				</section>
 
@@ -124,7 +133,11 @@
 						<img src='images/socrata.png' alt='Socrata' style='position: absolute; top: 30px; left: 30px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
-					<p>In the past year or so, it became even more important as we started to distribute our data in new ways.</p>
+						<p>In the past year or so, it became and even bigger issue as we started to distribute our data in new
+						ways.  In addition to our newly revamped online data dictionary and data maintenance pages, we were
+						now putting data on GitHub, ArcGIS Online, and Socrata.  This left us with even more places that the 
+						metadata needed to be edited. 
+						</p>
 					</aside>
 				</section>
 
@@ -146,10 +159,10 @@
 						<img src='images/vision6.png' style='position:absolute; top: 0px; left: 0px; margin: 0px; max-width: none; max-height: none;' />
 					</span>
 					<aside class='notes'>
-					<p>The problem is actually a little smaller than that because we removed the redundancy from the Data Maintenance 
-					pages and moved those to our internal wiki, AGOD uses AGOL metadata, and Server doesn't really have layer-level 
-					metadata anyway.  The point remains, though, that we would prefer to edit the metadata once and distribute it 
-					from that central point, like we do for the data itself.</p>
+						<p>We started to think about how we could edit the metadata once and distribute it from that central
+						point like we do with the data itself.  The most logical starting point was also the starting point
+						for the data - ArcSDE.
+						</p>
 					</aside>
 				</section>
 
@@ -171,8 +184,9 @@
 </metadata>
 					</code></pre>
 					<aside class='notes'>
-					<p>The metadata is stored in the SDE database in XML format.  This is the linchpin of the whole process.  
-					All outputs are derived from the XML stored in SDE.</p>
+						<p>Metadata is stored in the SDE database in XML format.  Our thought was that we could write code to
+						extract and parse this XML and use the contents to populate the metadata in other locations.
+						</p>
 					</aside>
 				</section>
 
@@ -195,36 +209,44 @@ else:
     arcpy.ExportMetadata_conversion(source, translator, dest + ".xml")
 	                </code></pre>
 					<aside class="notes">
-					<p>GitHub was the low hanging fruit - we just export the XML a GP tool and leave it at that.
+					<p>GitHub was the low hanging fruit, so we tackled that first.  We are providing the metadata on GitHub
+					in XML format, so we simply export the XML a GP tool when we are exporting the data.
 					</p>
 					</aside>
                 </section>
 
 				<section>
 					<img src='images/github_xml.png' alt='GitHub XML' />
-					<aside class="notes"></aside>
+					<aside class="notes">
+						<p>On GitHub, the XML metadata file is just stored alongside the data.
+						</p>
+					</aside>
 				</section>
 
 				<section>
 					<img src='images/arc-open_markdown.png' alt='GitHub XML' />
 					<aside class="notes">
-					<p>GitHub - Markdown option?  Philly's <a href='https://github.com/CityOfPhiladelphia/arc-open' target='_blank'>Arc-Open</a> project has it built in.</p>
+					<p>The City of Philadelphia has taken this one step further and created ta tool they call
+					<a href='https://github.com/CityOfPhiladelphia/arc-open' target='_blank'>Arc-Open</a>, which
+					creates a GitHub standard Markdown file to add rich text formatting to their GitHub data.  This
+					is an upgrade we may consider in the future.
+					</p>
 				</section>
 
 				<section>
+					<h3>Data Dictionary</h3>
 					<img src='images/data_dictionary_process.png' alt='Data Dictionary' />
 					<aside class='notes'>
-						<p>Data Dictionary - show process diagram?</p>
+						<p>The next output destination for our metadata is our GIS Data Dictionary on our website.  The 
+						process we are using for this one is more complex and is tied tightly to our content management 
+						system (CMS), but the concepts should work for any HTML output target.
+						</p>
+						<p>We have a configuration table that specifies some source and destination information for each
+						data set.  We loop through each data set and use eXtensible Stylesheet Language Transformation (XSLT) 
+						to translate the sections of the XML metadata that we need to the proper HTML tags for our data 
+						dictionary pages.
+						</p>
 					</aside>
-				</section>
-
-				<section>
-					<h3>SQL Access to SDE Metadata</h3>
-				  <pre><code data-trim class='sql'>
-SELECT Documentation
-FROM sde.GDB_ITEMS
-WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'				  
-				  </code></pre>
 				</section>
 
 				<section>
@@ -279,6 +301,15 @@ WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'
 						</tbody>
 					</table>
 					<aside class='notes'><p>Show configuration table</p></aside>
+				</section>
+
+				<section>
+					<h3>SQL Access to SDE Metadata</h3>
+				  <pre><code data-trim class='sql'>
+SELECT Documentation
+FROM sde.GDB_ITEMS
+WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'				  
+				  </code></pre>
 				</section>
 
 				<section>
