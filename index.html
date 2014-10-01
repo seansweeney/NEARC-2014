@@ -300,16 +300,28 @@ else:
 							</tr>
 						</tbody>
 					</table>
-					<aside class='notes'><p>Show configuration table</p></aside>
+					<aside class='notes'>
+						<p>The configuration table is used to set the source dataset and feature class and the destination
+						name and path for output.  This is the same configuration table we use for our GitHub data and
+						metadata export, so there are columns to allow each layer to be in one or the other or both.  The
+						last column lets us know if the data and/or metadata has been updated and needs to be re-exported.
+					    </p>
+					</aside>
 				</section>
 
 				<section>
 					<h3>SQL Access to SDE Metadata</h3>
-				  <pre><code data-trim class='sql'>
+					<pre><code data-trim class='sql'>
 SELECT Documentation
 FROM sde.GDB_ITEMS
 WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'				  
-				  </code></pre>
+	                </code></pre>
+	                <aside class='notes'>
+	                <p>The SQL query to get the metadata out of the SDE database is quite simple.  The metadata is stored as
+	                a field in the GDB_ITEMS table, and the layer can be specified by its PhysicalName (the one that shows
+	                up in ArcCatalog).
+	                </p>
+	                </aside>
 				</section>
 
 				<section>
@@ -351,7 +363,8 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 				</section>
 
 				<section>
-					<img src='images/new_data_dictionary.png' alt='Data Dictionary' />
+					<a target='_blank' href='http://www.cambridgema.gov/GIS/gisdatadictionary.aspx'>
+					<img src='images/new_data_dictionary.png' alt='Data Dictionary' /></a>
 
 					<aside class='notes'><p>Data Dictionary - show page</p></aside>
 				</section>
