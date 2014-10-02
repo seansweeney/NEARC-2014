@@ -325,7 +325,7 @@ WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'
 				</section>
 
 				<section>
-					<h3>Sample of XSLT File</h3>
+					<h3>Sample of eXtensible Stylesheet Language Transformation (XSLT) File</h3>
 					<pre><code class='xsl' data-trim>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html" omit-xml-declaration="yes"></xsl:output>
@@ -345,6 +345,10 @@ WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'
     ...
 </xsl:stylesheet>
 	                </code></pre>
+	                <aside class='notes'>
+	                <p>The XSLT file contains the bulk of the information required to translate the metadata from XML into
+	                HTML for our site.</p>
+	                </aside>
 	            </section>
 
 				<section>
@@ -360,19 +364,31 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
        returnValue = sW.ToString();
 }
 	                </code></pre>
+	                <aside>
+	                	<p>Whith the XSLT file in place, the actual C# code for the translation becomes very short, using
+	                	the .NET XslCompiledTransform() object.
+	                	</p>
+	                </aside>
 				</section>
 
 				<section>
 					<a target='_blank' href='http://www.cambridgema.gov/GIS/gisdatadictionary.aspx'>
 					<img src='images/new_data_dictionary.png' alt='Data Dictionary' /></a>
 
-					<aside class='notes'><p>Data Dictionary - show page</p></aside>
+					<aside class='notes'><p>This is an example of the final result - our GIS Data Dictionary pages with
+					the content automatically generated from the SDE metadta.
+					</p>
+				    </aside>
 				</section>
 
 				<section>
+					<h3>ArcGIS Online</h3>
 					<img src='images/agol_process.png' alt='ArcGIS Online Process' />
 					<aside class='notes'>
-						<p>AGOL - show process diagram?</p>
+						<p>The ArcGIS Online process is a little different.  Here we are using the ArcGIS Online REST API to
+						update the item's information page.  Since we are not really going from one XML-based format to 
+						another in this case, we do not use XSLT.  Instead we are parsing the XML in Python to pull out the
+						parts we need and using that information to generate the AGOL REST calls.  We use the same configuration talbe that is used for the other outputs.</p>
 					</aside>
 				</section>
 
@@ -386,7 +402,8 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snippet, tags):
     '''Update the item descriptive information.'''
     params = {
-        'snippet': snippet,
+        'snippet': snippet,         # Summary
+        'description': description, # Includes HTML attrib table
         'tags' : tags,
         'token' : token,
         'f': 'json'
@@ -400,7 +417,12 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
     return results
 				  </code></pre>
 				  <aside class="notes">
-				  	This function is used to update the descriptive information for an AGOL item.
+				  	<p>This function is used to update the descriptive information (metadata) for an AGOL item.  There is some
+				  	prep work that needs to go into setting up the inputs that is not shown here.  In particular, the three 
+				  	ID values must be acquired for the given data set.  These can all be obtained from an AGOL REST query
+				  	that returns item infromation given the data set name.</p>
+				  	<P>One other thing to note here is that the description field can take certain HTML tags for formatting
+				  	the output.  We are using the various table tags to make the attribute table.</p>
 				  </aside>
 				</section>
 
@@ -411,11 +433,21 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
 						<img src='images/agod_metadata.png' alt='ArcGIS for Open Data Metadata' style='position:absolute; top: 10px; left: 10px; margin: 0px; max-width: none; max-height: none;' />
 					</span>
 
-					<aside class='notes'><p>AGOL -> AGOD - show page</p></aside>
+					<aside class='notes'>
+						<p>This is what the resulting Item Detail looks like on AGOL.  The same information is passed through
+						to ArcGIS for Open Data.
+						</p>
+					</aside>
 				</section>
 
 				<section>
 					<img src='images/socrata_metadata.png' alt='Socrata Metadata' />
+					<aside class='notes'>
+						<p>At the moment, Socrata is the only platform that we don't have a solution for at all.  There is
+						talk of a major update coming in the spring of 2015 that may have some promise, but until then the
+						metadata on Socrata needs to be updated by hand.
+						</p>
+					</aside>
 				</section>
 
 				<section>
