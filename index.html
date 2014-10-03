@@ -391,12 +391,27 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 						<p>The ArcGIS Online process is a little different.  Here we are using the ArcGIS Online REST API to
 						update the item's information page.  Since we are not really going from one XML-based format to 
 						another in this case, we do not use XSLT.  Instead we are parsing the XML in Python to pull out the
-						parts we need and using that information to generate the AGOL REST calls.  We use the same configuration table that is used for the other outputs.</p>
+						parts we need and using that information to generate the AGOL REST calls.  We use the same 
+						configuration table that is used for the other outputs.</p>
 					</aside>
 				</section>
 
 				<section>
-					<p>AGOL - show REST calls used</p>
+					<h3>ArcGIS REST API Calls</h3>
+					<pre><code data-trim class='text'>
+/sharing/generateToken
+/sharing/rest/search
+/sharing/rest/content/users/{username}/{folderId}/items/{itemId}/update
+					</code></pre>
+
+					<aside class='notes'>
+						<p>The three ArcGIS REST API calls we use are:</p>
+						<ol>
+							<li>generateToken - for authentication</li>
+							<li>search - to get the id values</li>
+							<li>update - to update the metadta</li>
+						</ol>
+					</aside>
 				</section>
 
 				<section>
