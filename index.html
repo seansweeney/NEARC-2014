@@ -133,7 +133,7 @@
 						<img src='images/socrata.png' alt='Socrata' style='position: absolute; top: 30px; left: 30px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
 					</span>
 					<aside class="notes">
-						<p>In the past year or so, it became and even bigger issue as we started to distribute our data in new
+						<p>In the past year or so, it became an even bigger issue as we started to distribute our data in new
 						ways.  In addition to our newly revamped online data dictionary and data maintenance pages, we were
 						now putting data on GitHub, ArcGIS Online, and Socrata.  This left us with even more places that the 
 						metadata needed to be edited. 
@@ -210,7 +210,7 @@ else:
 	                </code></pre>
 					<aside class="notes">
 					<p>GitHub was the low hanging fruit, so we tackled that first.  We are providing the metadata on GitHub
-					in XML format, so we simply export the XML a GP tool when we are exporting the data.
+					in XML format, so we simply export the XML using a GP tool when we are exporting the data.
 					</p>
 					</aside>
                 </section>
@@ -301,10 +301,12 @@ else:
 						</tbody>
 					</table>
 					<aside class='notes'>
-						<p>The configuration table is used to set the source dataset and feature class and the destination
-						name and path for output.  This is the same configuration table we use for our GitHub data and
-						metadata export, so there are columns to allow each layer to be in one or the other or both.  The
-						last column lets us know if the data and/or metadata has been updated and needs to be re-exported.
+						<p>We have a configuration table which is also stored in our SDE database and is used to set the 
+						source dataset and feature class and the destination name and path for output.  This is the same 
+						configuration table we use for our GitHub data and metadata export, so there are columns to allow 
+						each layer to be in one or the other or both.  The last column lets us know if the data and/or 
+						metadata has been updated and needs to be re-exported (we have another script that helps us populate 
+						that field based on the SDE MVTABLES_MODIFIED table).
 					    </p>
 					</aside>
 				</section>
@@ -316,10 +318,11 @@ SELECT Documentation
 FROM sde.GDB_ITEMS
 WHERE PhysicalName LIKE '%.RECREATION_OpenSpace'				  
 	                </code></pre>
+					<img src='images/gdb_items.png' alt='GDB_ITEMS' style='width:200px'/>
 	                <aside class='notes'>
 	                <p>The SQL query to get the metadata out of the SDE database is quite simple.  The metadata is stored as
 	                a field in the GDB_ITEMS table, and the layer can be specified by its PhysicalName (the one that shows
-	                up in ArcCatalog).
+	                up in SQL Server Management Studio).
 	                </p>
 	                </aside>
 				</section>
@@ -364,8 +367,8 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
        returnValue = sW.ToString();
 }
 	                </code></pre>
-	                <aside>
-	                	<p>Whith the XSLT file in place, the actual C# code for the translation becomes very short, using
+	                <aside class='notes'>
+	                	<p>With the XSLT file in place, the actual C# code for the translation becomes very short, using
 	                	the .NET XslCompiledTransform() object.
 	                	</p>
 	                </aside>
@@ -376,7 +379,7 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 					<img src='images/new_data_dictionary.png' alt='Data Dictionary' /></a>
 
 					<aside class='notes'><p>This is an example of the final result - our GIS Data Dictionary pages with
-					the content automatically generated from the SDE metadta.
+					the content automatically generated from the SDE metadata.
 					</p>
 				    </aside>
 				</section>
@@ -388,7 +391,7 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 						<p>The ArcGIS Online process is a little different.  Here we are using the ArcGIS Online REST API to
 						update the item's information page.  Since we are not really going from one XML-based format to 
 						another in this case, we do not use XSLT.  Instead we are parsing the XML in Python to pull out the
-						parts we need and using that information to generate the AGOL REST calls.  We use the same configuration talbe that is used for the other outputs.</p>
+						parts we need and using that information to generate the AGOL REST calls.  We use the same configuration table that is used for the other outputs.</p>
 					</aside>
 				</section>
 
@@ -420,7 +423,7 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
 				  	<p>This function is used to update the descriptive information (metadata) for an AGOL item.  There is some
 				  	prep work that needs to go into setting up the inputs that is not shown here.  In particular, the three 
 				  	ID values must be acquired for the given data set.  These can all be obtained from an AGOL REST query
-				  	that returns item infromation given the data set name.</p>
+				  	that returns item information given the data set name.</p>
 				  	<P>One other thing to note here is that the description field can take certain HTML tags for formatting
 				  	the output.  We are using the various table tags to make the attribute table.</p>
 				  </aside>
@@ -478,7 +481,7 @@ def updateItemDescription(userID, folderID, itemID, portalURL, token=None, snipp
 				progress: true,
 				history: true,
 				center: false,
-				slideNumber: true,
+				slideNumber: false,
 
 //				theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
