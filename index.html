@@ -97,6 +97,11 @@
 				</section>
 
 				<section>
+					<h3>Rachel</h3>
+					<img src='images/femalecodertocat.png' alt='Rachel' />
+				</section>
+
+				<section>
 					<img src='images/sde_metadata.png' alt='SDE' style='position: absolute; top: -10px; left: -10px; margin: 0px; border: none; max-width: none; max-height: none; z-index=10'/>
 					<span class='fragment'>
 						<img src='images/old_data_dictionary.png' alt='Data Dictionary' style='position: absolute; top: 0px; left: 0px; margin: 0px; border: none; max-width: none; max-height: none; z-index=20'/>
@@ -393,6 +398,19 @@ using (XmlWriter xmlW = XmlWriter.Create(sW, xslt.OutputSettings))
 						another in this case, we do not use XSLT.  Instead we are parsing the XML in Python to pull out the
 						parts we need and using that information to generate the AGOL REST calls.  We use the same 
 						configuration table that is used for the other outputs.</p>
+					</aside>
+				</section>
+
+				<section>
+					<h3>SQL Access to SDE Metadata and Config in Python</h3>
+					<pre><code data-trim class='text'>
+sde_conn = arcpy.ArcSDESQLExecute(server, instance, database, user, password)
+sde_return = sde_conn.execute(sql)
+					</code></pre>
+					<aside class='notes'>
+						Since we were already using ArcPy we took a shortcut and used the ArcSDESQLExecute class to 
+						connect to the SDE database and query the metadata and the configuration file, as opposed to
+						using a standard Python SQL library.
 					</aside>
 				</section>
 
