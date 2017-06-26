@@ -12,7 +12,7 @@ In this presentation, we will demo our new data dictionary, which is generated d
 
 # Links #
 
-* [Slides](http://seansweeney.github.io/NEARC-2014/)
+* [Slides](http://seansweeney.github.io/NEARC-2014/) - If you type the S key while viewing the slides, you should get a second window that includes my notes.
 * [Camgridge GIS Data Dictionary](http://www.cambridgema.gov/GIS/gisdatadictionary.aspx)
 * [Data Dictionary XSL](https://gist.github.com/seansweeney/ae576708d6c651b92c05)
 * [XSL Transform snippet](https://gist.github.com/seansweeney/dcd7e71c983f5c4f63b4)
