@@ -1,5 +1,5 @@
 # Presentation Details #
-**Title:** One Metadata to Rule Them All
+**Title:** One Metadata to Rule Them All  
 **Time Slot:** Tuesday, October 7, 2014, 2:00 p.m. - 2:30 p.m.  
 **Authors:**
 
